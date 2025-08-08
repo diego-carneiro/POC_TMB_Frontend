@@ -1,69 +1,128 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Order Management App - Frontend
 
-Currently, two official plugins are available:
+Sistema de gestão de pedidos desenvolvido em **React + TypeScript**, utilizando **Tailwind CSS v4**, **TanStack Query** e **Axios**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Visão Geral
 
-## Expanding the ESLint configuration
+Esta aplicação permite:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Listar pedidos em uma tabela responsiva, com coluna de **status** exibindo os estados: **Pendente**, **Processando** e **Finalizado**;
+- Criar novos pedidos através de um formulário;
+- Excluir pedidos diretamente pelas linhas da tabela, através do ícone de lixeira, que acessa a rota `DELETE /orders/{id}`;
+- Visualizar detalhes completos de cada pedido;
+- A tabela é atualizada automaticamente com frequência para manter os dados sincronizados com o backend;
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📆 Tecnologias Utilizadas
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- [React](https://react.dev)
+- [Vite](https://vitejs.dev)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS v4](https://tailwindcss.com)
+- [TanStack Query v5](https://tanstack.com/query/latest)
+- [React Router DOM v7](https://reactrouter.com/en/main)
+- [Axios](https://axios-http.com/)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## ⚙️ Instalação
+
+```bash
+# Clone o repositório
+https://github.com/seu-usuario/order-management-app.git
+
+# Acesse a pasta do projeto
+cd order-management-app
+
+# Instale as dependências
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ✨ Execução do Projeto
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+Abra no navegador:
+
+```
+http://localhost:5173
+```
+
+Certifique-se de que sua API esteja rodando em:
+
+```
+http://localhost:5004/api
+```
+
+Ou ajuste a URL base em:
+
+```ts
+src/services/orderService.ts
+```
+
+---
+
+## 📁 Estrutura de Pastas
+
+```
+src/
+├── components/  # Componentes reutilizáveis (ex: tabela)
+├── hooks/       # Hooks do TanStack Query
+├── layouts/     # Auxílio na estrutura das telas
+├── pages/       # Telas principais (listar, criar, visualizar)
+├── services/    # Camada de serviços (axios + regras)
+├── main.tsx     # Entrada da aplicação com rotas
+└── index.css    # Estilos globais com Tailwind
+```
+
+---
+
+
+## 🌐 Rotas da Aplicação
+
+| Rota                  | Descrição                          |
+| --------------------- | ---------------------------------- |
+| `/`                   | Lista todos os pedidos             |
+| `/new`                | Cria um novo pedido                |
+| `/orders/:id`         | Detalhes do pedido por ID          |
+| `DELETE /orders/{id}` | Remove um pedido pelo seu ID       |
+
+
+---
+
+## 🛠️ Configuração do Tailwind CSS v4
+
+Tailwind CSS 4 é baseado em configuração via `@import`.
+
+```css
+/* src/index.css */
+@import "tailwindcss";
+```
+
+E no `vite.config.ts`:
+
+```ts
+import tailwindcss from '@tailwindcss/vite';
+plugins: [react(), tailwindcss()];
+```
+
+---
+
+## 🧪 Requisições HTTP (Axios)
+
+As requisições são feitas pela instância do `axios` em `src/services/orderService.ts`.
+
+### Endpoints esperados da API:
+
+- `GET /orders`
+- `GET /orders/:id`
+- `POST /orders`
+- `DELETE /orders/{id}`  
+
+---
+
+Desenvolvido por Diego Carneiro.
